@@ -1,36 +1,58 @@
 import 'package:flutter/material.dart';
 
 void main() => runApp(
-      Column(
-        children: <Widget>[
-          Text(
-            'Hello World!',
-            textDirection: TextDirection.ltr,
+      MaterialApp(
+        home: Scaffold(
+          body: ListaTransferencias(),
+          appBar: AppBar(
+            title: Text(
+              'Transferências',
+            ),
           ),
-          Text(
-            'Meu primeiro Widget',
-            textDirection: TextDirection.ltr,
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {},
+            child: Icon(Icons.add),
           ),
-          Image.network(
-            "https://media.newyorker.com/photos/59096f7b019dfc3494ea1f0d/master/pass/Wright-Endangered-Species.jpg",
-            scale: 4.0,
-          ),
-          Column(
-            children: <Widget>[
-              Text(
-                'Column filho de column',
-                textDirection: TextDirection.rtl,
-              ),
-              Column(
-                children: <Widget>[
-                  Text(
-                    'Column filho de column 2',
-                    textDirection: TextDirection.rtl,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
+
+class ListaTransferencias extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        ItemTransferencia(Transferencia(100, 1000)),
+        ItemTransferencia(Transferencia(200, 1002)),
+        ItemTransferencia(Transferencia(300, 1003)),
+      ],
+    );
+  }
+}
+
+class ItemTransferencia extends StatelessWidget {
+  final Transferencia _transferencia;
+
+  ItemTransferencia(this._transferencia);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        leading: Icon(
+          Icons.monetization_on,
+          size: 40,
+        ),
+        title: Text(_transferencia.valor.toString()),
+        subtitle: Text(_transferencia.numeroConta.toString()),
+      ),
+    );
+  }
+}
+
+class Transferencia {
+  final double valor;
+  final int numeroConta;
+
+  Transferencia(this.valor, this.numeroConta);
+}
